@@ -86,7 +86,7 @@ class AudioCast {
       }
       //connected to a cast device
       else {
-        //not same device selected -> disconnect old + connect to new device TODO: Add port?
+        //not same device selected -> disconnect old + connect to new device
         if (_currentPlaybackDevice?.host != device.host) {
           //disconnect current device
           await _currentAdapter.disconnect();
@@ -141,7 +141,8 @@ class AudioCast {
         throw ('no device is currently connected.');
       }
     } catch (e) {
-      errorDebugPrint('castAudioFromBytes(${bytes.length}, $mediaData, $start)', e);
+      errorDebugPrint(
+          'castAudioFromBytes(${bytes.length}, $mediaData, $start)', e);
       if (!flagCatchErrors) rethrow;
     }
   }
@@ -311,6 +312,7 @@ class AudioCast {
   static void _refreshDeviceList() {
     var newList = <Device>{};
     for (var adapter in adapters) {
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
       newList.addAll(adapter.devices.state);
     }
 
@@ -324,6 +326,7 @@ class AudioCast {
 }
 
 enum CastType { chromecast, airplay, dlna, firetv }
+
 enum PlaybackState { playing, paused, buffering, noAudio }
 
 class Device {
